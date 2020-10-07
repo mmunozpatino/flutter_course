@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_scanner/src/pages/directions_page.dart';
 import 'package:qr_scanner/src/pages/maps_page.dart';
 
+import 'package:barcode_scan/barcode_scan.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
@@ -24,13 +26,30 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: _renderBottomNavBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: _scanQr,
         child: Icon(Icons.filter_center_focus),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
 
+  _scanQr() async {
+
+    //TODO: https://fernando-herrera.com
+    String futureString = 'https://fernando-herrera.com';
+
+    try{
+      futureString = (await BarcodeScanner.scan()).rawContent;
+    } catch( e ) {
+      futureString = e.toString();
+    }
+
+    print('texto leido ' + futureString);
+
+    if(futureString != null) {
+      print('hay data mechi!');
+    }
+  }
   Widget _renderBottomNavBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex, //elementSelected
