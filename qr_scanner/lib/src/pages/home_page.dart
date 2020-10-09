@@ -38,17 +38,17 @@ class _HomePageState extends State<HomePage> {
     //TODO: https://fernando-herrera.com
     String futureString = 'https://fernando-herrera.com';
 
-    try{
-      futureString = (await BarcodeScanner.scan()).rawContent;
-    } catch( e ) {
-      futureString = e.toString();
-    }
+    // try{
+    //   futureString = (await BarcodeScanner.scan()).rawContent;
+    // } catch( e ) {
+    //   futureString = e.toString();
+    // }
 
-    print('texto leido ' + futureString);
+    // print('texto leido ' + futureString);
 
-    if(futureString != null) {
-      print('hay data mechi!');
-    }
+    // if(futureString != null) {
+    //   print('hay data mechi!');
+    // }
   }
   Widget _renderBottomNavBar() {
     return BottomNavigationBar(
