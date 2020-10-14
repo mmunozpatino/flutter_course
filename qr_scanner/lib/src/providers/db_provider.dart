@@ -100,4 +100,22 @@ class DbProvider {
 
     return res; //devuelve la cant de updates que se hicieron 
   }
+
+  Future<int> deleteScan(int id) async {
+    final db = await database;
+
+    final res = await db.delete('scans', where: 'id = ? ', whereArgs: [id]);
+
+    return res; //devuelve la cant de deletes que se hicieron 
+  }
+
+  Future<int> deleteAll() async {
+    final db = await database;
+
+    final res = await db.rawDelete(
+      'DELETE FROM scans'
+    );
+
+    return res; //devuelve la cant de deletes que se hicieron 
+  }
 }
