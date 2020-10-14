@@ -92,4 +92,12 @@ class DbProvider {
 
     return list;
   }
+
+  Future<int> updateScan(ScanModel scanModel) async {
+    final db = await database;
+
+    final res = await db.update('scans', scanModel.toJson(), where: 'id = ?', whereArgs: [scanModel.id]);
+
+    return res; //devuelve la cant de updates que se hicieron 
+  }
 }
