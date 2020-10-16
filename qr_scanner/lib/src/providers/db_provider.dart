@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:qr_scanner/src/models/scan_model.dart';
+export 'package:qr_scanner/src/models/scan_model.dart'; //los que me importen lo importan
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -12,9 +13,7 @@ class DbProvider {
   static final DbProvider instance = DbProvider._();
 
   //esta notación es común para el constructor privado de la clase
-  DbProvider._() {
-
-  } 
+  DbProvider._(); 
 
   Future<Database> get database async {
     if(_db != null) return _db;
@@ -37,8 +36,9 @@ class DbProvider {
         await db.execute(
           'CREATE TABLE scans ( '
           ' id INTEGER PRIMARY KEY,'
-          ' type TEXT,'
-          ' value TEXT'
+          ' type TEXT, '
+          ' value TEXT '
+          ' ) '
         );
       }
     );
@@ -85,7 +85,7 @@ class DbProvider {
     final db = await database;
 
     final res = await db.rawQuery(
-      "SELECT * FROM scans WHERE type = '${type}'"
+      "SELECT * FROM scans WHERE type = '$type'"
     );
 
     List<ScanModel> list = res.isNotEmpty ? res.map((e) => ScanModel.fromJson(e)).toList() : [];

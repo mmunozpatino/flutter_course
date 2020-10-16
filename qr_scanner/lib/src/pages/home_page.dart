@@ -3,6 +3,7 @@ import 'package:qr_scanner/src/pages/directions_page.dart';
 import 'package:qr_scanner/src/pages/maps_page.dart';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:qr_scanner/src/providers/db_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -44,11 +45,11 @@ class _HomePageState extends State<HomePage> {
     //   futureString = e.toString();
     // }
 
-    // print('texto leido ' + futureString);
-
-    // if(futureString != null) {
-    //   print('hay data mechi!');
-    // }
+    if(futureString != null) {
+      final scan = ScanModel(value: futureString);
+      DbProvider.instance.newScan(scan);
+    }
+    
   }
   Widget _renderBottomNavBar() {
     return BottomNavigationBar(
