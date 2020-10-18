@@ -23,6 +23,11 @@ class ScanBloc{
     _scanStreamController?.close(); //funciona como el ? de kotlin
   }
 
+  addScan(ScanModel scan) async{
+    await DbProvider.instance.newScan(scan);
+    getScans();
+  }
+
   getScans() async {
     _scanStreamController.sink.add(await DbProvider.instance.getAllScan());
   }
