@@ -6,6 +6,7 @@ class ScanBloc{
   static final ScanBloc _singleton = ScanBloc._();
 
   factory ScanBloc() {
+    //factory es un constructor que no necesariamente genera una instancia nueva!
     return _singleton;
   }
 
