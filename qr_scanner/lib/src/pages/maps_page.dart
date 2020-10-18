@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_scanner/src/bloc/scan_bloc.dart';
 import 'package:qr_scanner/src/models/scan_model.dart';
+import 'package:qr_scanner/src/utils/utils.dart' as utils;
 
 class MapsPage extends StatelessWidget {
 
@@ -13,6 +14,7 @@ class MapsPage extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot) {
           if (!snapshot.hasData) {
+            print("No hay data");
             return Center(
               child: CircularProgressIndicator(),
             );
@@ -36,6 +38,7 @@ class MapsPage extends StatelessWidget {
                 title: Text(scans[i].value),
                 subtitle: Text(' ID ${scans[i].id}'),
                 trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+                onTap: () => utils.launchScan(scans[i]),
               ),
               background: Container(
                 color: Colors.red,

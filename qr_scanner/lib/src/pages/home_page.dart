@@ -5,6 +5,7 @@ import 'package:qr_scanner/src/pages/directions_page.dart';
 import 'package:qr_scanner/src/pages/maps_page.dart';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:qr_scanner/src/utils/utils.dart' as utils;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   _scanQr() async {
 
     //TODO: https://fernando-herrera.com
+    //TODO geo:40.724233047051705,-74.00731459101564
     String futureString = 'https://fernando-herrera.com';
 
     // try{
@@ -51,6 +53,8 @@ class _HomePageState extends State<HomePage> {
       final scan = ScanModel(value: futureString);
       scanBloc.addScan(scan);
 
+      final scan2 = ScanModel(value: 'geo:40.724233047051705,-74.00731459101564');
+      scanBloc.addScan(scan2);
     }
 
 
