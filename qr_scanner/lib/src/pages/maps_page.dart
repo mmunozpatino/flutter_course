@@ -7,8 +7,10 @@ class MapsPage extends StatelessWidget {
 
   final ScanBloc scanBloc = ScanBloc();
 
+
   @override
   Widget build(BuildContext context) {
+    scanBloc.getScans();
     return StreamBuilder<List<ScanModel>>(
         stream: scanBloc.scanStream,
         builder:
