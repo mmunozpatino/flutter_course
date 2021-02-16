@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
         'map' : (BuildContext context) => ViewMapsPage(),
       },
       theme: ThemeData(
-        primaryColor: Colors.deepPurple
+        primaryColor: Colors.deepPurpleAccent,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: Colors.deepPurpleAccent)
       ),
     );
   }

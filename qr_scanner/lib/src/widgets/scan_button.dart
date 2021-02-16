@@ -7,7 +7,7 @@ class ScanButton extends StatelessWidget {
         onPressed: () {},
         elevation: 0,
         child: Icon(Icons.filter_center_focus),
-        backgroundColor: Theme.of(context).primaryColor,
+        // backgroundColor: Theme.of(context).primaryColor,
       );
   }
 }
