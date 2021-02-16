@@ -4,11 +4,10 @@ import 'package:qr_scanner/src/models/scan_model.dart';
 import 'package:qr_scanner/src/pages/directions_page.dart';
 import 'package:qr_scanner/src/pages/maps_page.dart';
 
-import 'package:barcode_scan/barcode_scan.dart';
-import 'package:qr_scanner/src/utils/utils.dart' as utils;
+import 'package:qr_scanner/src/widgets/custom_navigationBar.dart';
+import 'package:qr_scanner/src/widgets/scan_button.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,13 +26,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: _renderPage(_currentIndex),
-      bottomNavigationBar: _renderBottomNavBar(),
+      bottomNavigationBar: CustomNavigationBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: _scanQr,
-        child: Icon(Icons.filter_center_focus),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      floatingActionButton: ScanButton(),
     );
   }
 
@@ -59,26 +54,6 @@ class _HomePageState extends State<HomePage> {
 
 
     
-  }
-  Widget _renderBottomNavBar() {
-    return BottomNavigationBar(
-      currentIndex: _currentIndex, //elementSelected
-      onTap: (i) {
-        setState(() {
-          _currentIndex = i;
-        });
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.map),
-          title: Text('mapa')
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.brightness_5),
-          title: Text('direcciones')
-        ),
-      ]
-    );
   }
 
   Widget _renderPage(int currentPage) {
