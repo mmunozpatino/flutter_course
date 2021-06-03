@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:form_validation/src/bloc/login_bloc.dart';
+import 'package:form_validation/src/bloc/provider.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -64,6 +66,8 @@ class LoginPage extends StatelessWidget {
 
   Widget _createLoginForm(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final bloc = Provider.of(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -93,11 +97,11 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text('Ingreso', style: TextStyle(fontSize: 20)),
                 SizedBox( height: 45),
-                _emailInput(),
+                _emailInput(bloc),
                 SizedBox( height: 15),
-                _passInput(),
+                _passInput(bloc),
                 SizedBox( height: 30),
-                _createBotton(),
+                _createBotton(bloc),
               ],
             )
           ),
@@ -108,47 +112,80 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _emailInput() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-          icon: Icon( Icons.alternate_email, color: Colors.deepPurple),
-          hintText: 'ejemplo@correo.com',
-          labelText: 'Mail'
-        )
-      )
+  Widget _emailInput(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon( Icons.alternate_email, color: Colors.deepPurple),
+              hintText: 'ejemplo@correo.com',
+              labelText: 'Mail',
+              counterText: snapshot.data,
+              errorText: snapshot.error
+            ),
+            onChanged: bloc.changeEmail,
+
+          )
+        );
+      }
     );
   }
   
-  Widget _passInput() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-          icon: Icon( Icons.lock_outline, color: Colors.deepPurple),
-          labelText: 'Contraseña'
-        )
-      )
+  Widget _passInput(LoginBloc bloc) {
+
+    return StreamBuilder(
+      stream: bloc.passStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon( Icons.lock_outline, color: Colors.deepPurple),
+              labelText: 'Contraseña',
+              counterText: snapshot.data,
+              errorText: snapshot.error
+            ),
+            onChanged: bloc.changePass,
+          )
+        );
+      }
+    );
+    
+  }
+
+  Widget _createBotton(LoginBloc bloc) {
+
+    return StreamBuilder( 
+      stream: bloc.isValidForm,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return RaisedButton(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
+            child: Text('ingresar')
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5)
+          ),
+          elevation: 0,
+          color: Colors.deepPurple,
+          textColor: Colors.white,
+          onPressed: snapshot.hasData ? () =>_login(bloc, context) : null
+        );
+      }
     );
   }
 
-  Widget _createBotton() {
-    return RaisedButton(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
-        child: Text('ingresar')
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5)
-      ),
-      elevation: 0,
-      color: Colors.deepPurple,
-      textColor: Colors.white,
-      onPressed: () {}
-    );
+  _login(LoginBloc bloc, BuildContext context) {
+    print('=================' );
+    print('Email: ' + bloc.email );
+    print('Pass: ' + bloc.pass);
+    print('=================');
+    Navigator.pushNamed(context, 'home');
   }
-
 }
