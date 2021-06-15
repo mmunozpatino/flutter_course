@@ -11,16 +11,16 @@ class MyApp extends StatelessWidget {
     //padre ppal de tooda la app!
     return Provider(
       child: MaterialApp(
-      title: 'Form Validation',
-      debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
-      routes: {
-        'login': (BuildContext context) => LoginPage(),
-        'home': (BuildContext context) => HomePage()
-      },
-      theme: ThemeData(
-        primaryColor: Colors.deepPurple
-      ),
+        title: 'Form Validation',
+        debugShowCheckedModeBanner: false,
+        initialRoute: 'login',
+        routes: {
+          'login': (BuildContext context) => LoginPage(),
+          'home': (BuildContext context) => HomePage()
+        },
+        theme: ThemeData(
+          primaryColor: Colors.deepPurple
+        ),
      )
     );
   }
